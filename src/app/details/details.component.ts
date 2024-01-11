@@ -15,7 +15,6 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
       class="listing-photo"
       [src]="housingLocation?.photo"
       alt="Exterior photo of {{ housingLocation?.name}}"
-      crossorigin
     />
     <section class="listing-description">
       <h2 class="listing-heading">{{ housingLocation?.name}}</h2>
@@ -61,8 +60,11 @@ export class DetailsComponent {
   });
 
   constructor(){
-    const housingLocationId = Number(this.route.snapshot.params['id']);
-    this.housingLocation = this.housingService.getHousingLocationsById(housingLocationId);
+    const housingLocationId = parseInt(this.route.snapshot.params['id'], 10);
+
+    this.housingService.getHousingLocationsById(housingLocationId).then(housingLocation=> {
+      this.housingLocation = this.housingLocation;
+    });
   }
 
   submitApplication(){
