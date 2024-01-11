@@ -15,6 +15,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
       class="listing-photo"
       [src]="housingLocation?.photo"
       alt="Exterior photo of {{ housingLocation?.name}}"
+      crossorigin
     />
     <section class="listing-description">
       <h2 class="listing-heading">{{ housingLocation?.name}}</h2>
@@ -53,6 +54,7 @@ export class DetailsComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
   housingService = inject(HousingService);
   housingLocation: HousingLocation | undefined;
+
   applyForm = new FormGroup({
     firstName: new FormControl(''),
     lastName: new FormControl(''),
@@ -63,7 +65,7 @@ export class DetailsComponent {
     const housingLocationId = parseInt(this.route.snapshot.params['id'], 10);
 
     this.housingService.getHousingLocationsById(housingLocationId).then(housingLocation=> {
-      this.housingLocation = this.housingLocation;
+      this.housingLocation = housingLocation;
     });
   }
 
